@@ -9,15 +9,20 @@ async function scrape() {
         const {data} = await axios.get(url);
         // console.log(data);
         const parsed = cheerio.load(data);
-        const postList = parsed("article");
-        // console.log(Object.keys(postList));
+        const postList = parsed("div[class=post-header-image] > a");    // This bacically searches for all the div with class as post-head-image and get the a tag from it
+        const postUrl = new Array();
+        // console.log(postList);
         postList.each((idx, el) => {
             // console.log(Object.keys(el));
-            console.log(parsed(el).attr("href"));
-            console.log("\n");
-            console.log("\n");
-            console.log("\n");
+            let val = parsed(el).attr().href;
+            postUrl.push(val);
+            
         });
+        // console.log(postUrl);
+        for (let ip in postUrl)
+        {
+            console.log(postUrl[ip]);
+        }
         
 
 
